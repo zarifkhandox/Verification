@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Background Info</title>
+    <style>
+        /* General body styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background: url('https://www.freepik.com/free-photo/closeup-shot-wet-glass-reflecting-rainy-forest-scenery_11354113.htm#fromView=keyword&page=1&position=1&uuid=0d5f89da-ec80-40e9-84f4-3b160dcecbda'),
+                        linear-gradient(120deg, #1e3b70, #151a30);
+            background-size: 400% 400%;
+            animation: spaceAnimation 30s linear infinite;
+        }
+
+        @keyframes spaceAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Container for your information */
+        .info-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 90%;
+            text-align: left;
+            /* Adjusted to make the container bigger */
+            height: 90vh; /* Adjusted height to make the container bigger */
+            overflow-y: auto; /* Added to make the container scrollable if content exceeds the viewport */
+        }
+
+        .info-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .info-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Add smooth animations */
+        .info-container {
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Styling for lines with symbols */
+        .info-container p span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .info-container p span::before {
+            content: "> ";
+            color: #fff;
+        }
+
+        /* Link style (neon blue color) */
+        a {
+            color: #00e5ff;
+            text-decoration: none;
+            font-weight: bold;
+            text-shadow: 0 0 5px #00e5ff, 0 0 10px #00e5ff, 0 0 15px #00e5ff;
+        }
+
+        a:hover {
+            color: #0096d6;
+            text-shadow: 0 0 10px #0096d6, 0 0 20px #0096d6;
+        }
+
+        /* Adjust website zoom and make it scrollable */
+        body {
+            zoom: 80%;
+            overflow: auto;
+            /* Ensure the top content is visible */
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        /* Ensure the top content is visible by default */
+        .info-container {
+            margin-top: 0;
+            padding-top: 0;
+            /* Adjust the container to be scrollable if content exceeds the viewport */
+            overflow-y: auto;
+            max-height: 90vh; /* Adjust the max height to ensure the top content is visible */
+        }
+
+        /* Added styles for images section */
+        .images-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .images-section img {
+            width: 30%;
+            border-radius: 10px;
+            transition: transform 0.5s ease;
+        }
+
+        .images-section img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Scary looking container for images */
+        .scary-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 90%;
+            text-align: left;
+            /* Adjusted to make the container bigger */
+            height: 90vh; /* Adjusted height to make the container bigger */
+            overflow-y: auto; /* Added to make the container scrollable if content exceeds the viewport */
+            margin-top: 20px; /* Added margin-top to separate the scary container from the info container */
+        }
+
+        .scary-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .scary-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .scary-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .scary-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .scary-container {
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scary-container p span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .scary-container p span::before {
+            content: "> ";
+            color: #fff;
+        }
+
+        .scary-container {
+            margin-top: 0;
+            padding-top: 0;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        .images-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .images-section img {
+            width: 30%;
+            border-radius: 10px;
+            transition: transform 0.5s ease;
+        }
+
+        .images-section img:hover {
+            transform: scale(1.05);
+        }
+
+    </style>
+
+    <div id="player"></div> <!-- Placeholder for the YouTube player -->
+    <div class="info-container">
+        <h1>About: Our pookie Emtiaz Ehan!</h1>
+        <p>
+            [UK English is used on this Information.]
+            <span> Real Name: Emtiaz Ehan</span>
+            <span> Born in: Dhaka, Bangladesh</span>
+            <span> Also Lived in: London, UK</span>
+            <span> Location: (Google Maps) 23°46'23.2"N 90°21'56.5"E, (OpenStreetMap) 23.708600, 90.401700</span>
+            <span> Currently Lives in: Dhaka, Bangladesh</span>
+            <span> Public IP Address / IPv4 (Internet Protocol version 4): 199.232.22.132</span>
+            <span> Public IP Port: 443</span>
+            <span> Private IP Address: 103.218.24.232</span>
+            <span> Youtube Name: <a href="https://www.youtube.com/@PaknaEmtu" class="neon-blue-link">Balpakna Emtiaz / PaknaEmtu</a></span>
+            <span> Subscribers: 90</span>
+            <span> Videos: 5</span>
+            <span> Shorts: 29</span>
+            <span> Total Videos: 34</span>
+            <span> Views total (Youtube): 19,410 views</span>
+            <span> Created Youtube On: Joined 21 Dec 2023</span>
+            <span> Shared Music: <a href="https://www.bandlab.com/post/c1230fd4-8a1e-ef11-86d2-6045bd2cd6bc" class="neon-blue-link">https://www.bandlab.com/post/c1230fd4-8a1e-ef11-86d2-6045bd2cd6bc</a></span>
+            <span> Music Career: <a href="https://www.bandlab.com/emtiazehan" class="neon-blue-link">https://www.bandlab.com/emtiazehan</a></span>
+            <span> Started Career in music: 2023 december</span>
+            <span> Favourite genre of music: Rock, Pop, Hip Hop, R&B & Soul, Electronic, Jazz, Latin, Classical, Funk, K–Pop, Progressive Rock, House, Dance & EDM, Trap, Lo–fi & Others.</span>
+            <span> Music Preference Type: Eclectic</span>
+            <span> Idol / Inspired from: D4vd, Ed Sheeran, Kendrick Lamar, Alan Walker (9)</span>
+            <span> Roblox: <a href="https://www.roblox.com/users/5241057628/profile" class="neon-blue-link">https://www.roblox.com/users/5241057628/profile</a> aka GHOST_9rol / Emtizzy</span>
+            <span> Roblox Total Badges: 552</span>
+            <span> Favourite Game: Bladeball (ass)</span>
+            <span> Discord Alt's: emtuu2, human1230526</span>
+            <span> Uncle's Website: <a href="https://www.jonaki.com" class="neon-blue-link">jonaki.com</a></span>
+            <span> Height: 5'2 (Estimated 5'3 or 5'4)</span>
+            <span> Had a view at: 24.314600, 89.568000 </span>
+            <span> [RAW] Had a view at: 24°18'52.6"N 89°34'04.8"E</span>
+            <span> Device: Chromebook / ChromeOS</span>
+            <span> Spotify: <a href="https://open.spotify.com/user/31vbl63ygip7oagt3atlatzghw4e" class="neon-blue-link">https://open.spotify.com/user/31vbl63ygip7oagt3atlatzghw4e</a></span>
+            <span> His Ex pookie bear (spotify): <a href="https://open.spotify.com/user/31kyyjzyhmagurufnzbszyxdtrdm" class="neon-blue-link">https://open.spotify.com/user/31kyyjzyhmagurufnzbszyxdtrdm</a></span>
+            <span> Personality: Egotistic, Manipulator [EMOTIONAL INTELLIGENCE], Retarded & Underdeveloped.</span>
+            <span> Type: Bisexual or Straight {May be bisexual because he acts like one.}</span>
+            <span> Age: 9 - 12 [ESTIMATED]</span>
+            <span> Voice type: Child {Thyroid cartilage expansion did not happen because the growth of the larynx did not occur.}</span>
+            <span> Hobby: Music artistry.</span>
+            <span> Favourite color: Purple or Blue.</span>
+            <span> Favourite Anime: Sonny Boy.</span>
+            <span> Favourite Anime Character: Asakaze</span>
+            <span> Character's Voice Actor: Chiaki Kobayashi [Age 30, born in Jun 4, 1994, Best New Actor Award at the 15th Seiyu Awards]</span>
+            <spam> Average Life expectancy: 60.2</spam>
+            <span> Average income: 254 EUR / 31,838.90 TK</span>
+            <span> Sub continent: Southern and Central Asia</span>
+            <span> GNP: 32,852 mln</span>
+            <span> Flag: <a href="https://assets.ipstack.com/flags/bd.svg" class="neon-blue-link">https://assets.ipstack.com/flags/bd.svg</a></span>
+            <span> Currency: Bangladeshi Taka (BDT/৳)</span>
+            <span> Isp: "Systems Solutions & Development Technologies Limited"</span>
+            <span> Isp Website: <a href="https://www.ssdtl.com.bd" class="neon-blue-link">https://www.ssdtl.com.bd/</a></span> 
+            <span> Asn: 63526</span>
+            <span> Calling code: "+880"</span>
+            <span> ScreenWidth: 1280
+            <span> ScreenHeight: 800</span>
+            <span> BatteryLevel: 53%</span>
+            <span> Connection Type: 4g</span>
+            <span> Country Flag Emoji Unicode: "U+1F1E7 U+1F1E9"</span>
+            <span> Battery Charging: False</span>
+            <span> Cpu Cores: 2</span>
+            <span> WebGLRenderer: ANGLE (Intel, Vulkan 1.3.278 (Intel(R) UHD Graphics (JSL) (0x00004E55)), Intel open-source Mesa driver)</span>
+            <span> ColorDepth: 24</span>
+            <span> Timestamp: 2024-12-15T13:00:20.962Z</span>
+            <span> Screen Orientation: Landscape-Primary</span>
+            <span> JSHeapSizeLimit: 2028208128</span>
+            <span> TotalJSHeapSize: 2415442</span>
+            <span> UsedJSHeapSize: 1573654</span>
+            <span> LocalStorageEnabled: True</span>
+            <span> HardwareConcurrency: 2</span>
+        </p>
+    </div>
+    <div class="scary-container">
+        <h1>Images About pookie</h1>
+        <div class="images-section">
+            <a href="https://ibb.co.com/TcqCF9q"><img src="https://i.ibb.co.com/p2rm9Yr/image2.png" alt="image2" border="0"></a>
+            <a href="https://ibb.co.com/qJxw4pd"><img src="https://i.ibb.co.com/jJHFxDT/image3.png" alt="image3" border="0"></a>
+            <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/Swn9FTW/Picsart-24-05-08-19-25-00-957.png" alt="Picsart-24-05-08-19-25-00-957" border="0"></a>
+        </div>
+    </div>
+    <div data-video="6N1myUJvukg"  
+    data-autoplay="0"         
+    data-loop="1"             
+    id="youtube-audio">
+</div>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
