@@ -158,6 +158,30 @@
     .verified-text.show {
       display: block; /* Show when needed */
     }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #1c1f2b;
+      padding: 40px; /* Increased padding to make the popup bigger */
+      border-radius: 10px;
+      z-index: 10000;
+      text-align: center;
+      color: #d3d3d3;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .popup.show {
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .popup.hide {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
   </style>
 </head>
 <body>
@@ -176,6 +200,9 @@
       <button class="verification-submit">Submit</button>
       <div class="verified-text" id="verified-text">Verified</div>
     </form>
+  </div>
+  <div class="popup" id="verification-popup">
+    <p>Verification correct! You may proceed.</p>
   </div>
   <script>
     let verificationTimer = null;
@@ -232,7 +259,7 @@
       const verificationInput = document.querySelector('.verification-input').value;
       const verificationCode = document.getElementById('verification-code').innerText;
       if (verificationInput.toLowerCase() === verificationCode.toLowerCase()) {
-        alert('Verification correct! You may proceed.');
+        showPopup('Verification correct! You may proceed.');
         hideVerification();
         document.getElementById('verified-text').classList.add('show');
         setTimeout(() => {
@@ -243,6 +270,16 @@
         alert(`Incorrect. You have ${verificationAttempts} attempts left.`);
         document.querySelector('.verification-input').value = ''; // Clear input for next attempt
       }
+    }
+
+    function showPopup(message) {
+      const popup = document.getElementById('verification-popup');
+      popup.querySelector('p').innerText = message;
+      popup.classList.add('show');
+      setTimeout(() => {
+        popup.classList.remove('show');
+        popup.classList.add('hide');
+      }, 5000); // Show popup for 5 seconds
     }
 
     document.addEventListener('DOMContentLoaded', startVerificationTimer);
