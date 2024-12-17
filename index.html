@@ -182,6 +182,14 @@
       opacity: 0;
       transform: translate(-50%, -50%) scale(0.9);
     }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .checkbox-container input {
+      margin-right: 10px;
+    }
   </style>
 </head>
 <body>
@@ -197,6 +205,10 @@
     <form>
       <div class="verification-code" id="verification-code"></div>
       <input type="text" class="verification-input" placeholder="Enter the code">
+      <div class="checkbox-container">
+        <input type="checkbox" id="not-a-bot">
+        <label for="not-a-bot">Checkmark this if you are not a bot.</label>
+      </div>
       <button class="verification-submit">Submit</button>
       <div class="verified-text" id="verified-text">Verified</div>
     </form>
@@ -258,7 +270,8 @@
     function checkVerification() {
       const verificationInput = document.querySelector('.verification-input').value;
       const verificationCode = document.getElementById('verification-code').innerText;
-      if (verificationInput.toLowerCase() === verificationCode.toLowerCase()) {
+      const notABotChecked = document.getElementById('not-a-bot').checked;
+      if (verificationInput.toLowerCase() === verificationCode.toLowerCase() && notABotChecked) {
         showPopup('Verification correct! You may proceed.');
         hideVerification();
         document.getElementById('verified-text').classList.add('show');
