@@ -44,17 +44,12 @@
       border-radius: 10px;
       position: relative;
     }
-    @property --angle {
-      syntax: "<angle>";
-      initial-value: 0deg;
-      inherits: false;
-    }
     .card::after, .card::before {
       content: '';
       position: absolute;
       height: 100%;
       width: 100%;
-      background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+      background-image: conic-gradient(from 0deg, #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -69,10 +64,10 @@
     }
     @keyframes spin {
       from {
-        --angle: 0deg;
+        transform: rotate(0deg);
       }
       to {
-        --angle: 360deg;
+        transform: rotate(360deg);
       }
     }
     .loading-spinner {
