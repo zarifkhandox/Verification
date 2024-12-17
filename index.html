@@ -1,314 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storm Deserved It.</title>
-    <style>
-        /* General body styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            background: url('https://www.freepik.com/free-photo/closeup-shot-wet-glass-reflecting-rainy-forest-scenery_11354113.htm#fromView=keyword&page=1&position=1&uuid=0d5f89da-ec80-40e9-84f4-3b160dcecbda'),
-                        linear-gradient(120deg, #1e3b70, #151a30);
-            background-size: 400% 400%;
-            animation: spaceAnimation 30s linear infinite;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Border Animation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      font-family: 'Roboto', sans-serif; /* Smooth, readable font */
+      color: #d3d3d3; /* Light text color */
+    }
+    /* Custom Scrollbar for the Entire Page */
+    body {
+      scrollbar-gutter: stable both-edges;
+    }
 
-        @keyframes spaceAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
+    body {
+      min-height: 100vh; /* Full viewport height */
+      background: #0c0c0c; /* Dark background color */
+      color: #d3d3d3; /* Light text color */
+      display: flex;
+      justify-content: flex-start; /* Align content to the left */
+      align-items: flex-start; /* Align content to the top */
+      text-align: left; /* Align text to the left */
+      transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme change */
+      padding: 20px; /* Add space around the content */
+      overflow: hidden;
+    }
+    h1 {
+      color: #d3d3d3; /* Light color for headings */
+      font-size: 2rem; /* Adjust as needed */
+      margin: 0 0 10px 0; /* Add space below the title */
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* Align text to the left */
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Align content to the left */
+      justify-content: flex-start; /* Align content to the top */
+      margin: 0 auto;
+      width: 200px;
+      height: 100px;
+      padding: 300px;
+      background: #1c1f2b;
+      text-align: left; /* Align text to the left */
+      border-radius: 10px;
+      position: relative;
+    }
+    .create-forum-button {
+      cursor: pointer;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #4a4a4a;
+      color: #d3d3d3;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .create-forum-button:hover {
+      background-color: #6a6a6a;
+    }
+    .placeholder {
+      color: rgba(211, 211, 211, 0.5); /* Subtle transparency */
+      text-align: left;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: calc(100% - 40px);
+      height: calc(100% - 40px);
+      overflow-y: scroll; /* Allow vertical scrolling */
+      white-space: pre-wrap; /* Preserve whitespace and wrap text */
+      outline: none;
+      scroll-behavior: smooth;
+      scrollbar-gutter: stable both-edges;
+      overscroll-behavior: contain;
+    }
 
-        /* Container for your information */
-        .info-container {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            max-width: 800px;
-            width: 90%;
-            text-align: left;
-            /* Adjusted to make the container bigger */
-            height: 90vh; /* Adjusted height to make the container bigger */
-            overflow-y: auto; /* Added to make the container scrollable if content exceeds the viewport */
-        }
+    /* Hide scrollbar for Webkit browsers */
+    .placeholder::-webkit-scrollbar {
+      width: 0; /* Set width to 0 to hide it */
+      height: 0; /* Optional: Hides horizontal scrollbar */
+    }
 
-        .info-container h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+    /* Custom Scrollbar Styles (Optional) */
+    .placeholder::-webkit-scrollbar-track {
+      background: #1c1f2b;
+      border-radius: 10px;
+    }
 
-        .info-container p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
+    .placeholder::-webkit-scrollbar-thumb {
+      background-color: #4a4a4a;
+      border-radius: 10px;
+      border: 2px solid #1c1f2b;
+    }
 
-        /* Add smooth animations */
-        .info-container {
-            animation: fadeIn 2s ease-out;
-        }
+    .placeholder::-webkit-scrollbar-thumb:hover {
+      background-color: #6a6a6a;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    @property --angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
 
-        /* Styling for lines with symbols */
-        .info-container p span {
-            display: block;
-            margin-bottom: 10px;
-        }
+    .card::after, .card::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      padding: 3px;
+      border-radius: 10px;
+      animation: 3s spin linear infinite;
+    }
+    .card::before {
+      filter: blur(1.5rem);
+      opacity: 0.5;
+    }
+    @keyframes spin {
+      from {
+        --angle: 0deg;
+      }
+      to {
+        --angle: 360deg;
+      }
+    }
+    .theme-switcher {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .theme-switcher button {
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      background-color: #1c1f2b;
+      color: #d3d3d3;
+      transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme change */
+    }
+    .theme-switcher button:focus {
+      outline: none;
+    }
+    .card-content {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      text-align: left;
+      height: calc(100% - 40px);
+      overflow-y: scroll; /* Allow vertical scrolling */
+      padding: 10px;
+      scroll-behavior: smooth; /* Very smooth scrolling */
+    }
 
-        .info-container p span::before {
-            content: "> ";
-            color: #fff;
-        }
+    /* Custom Scrollbar Styles for card-content */
+    .card-content::-webkit-scrollbar {
+      width: 8px;
+    }
 
-        /* Link style (neon blue color) */
-        a {
-            color: #00e5ff;
-            text-decoration: none;
-            font-weight: bold;
-            text-shadow: 0 0 5px #00e5ff, 0 0 10px #00e5ff, 0 0 15px #00e5ff;
-        }
+    .card-content::-webkit-scrollbar-track {
+      background: #1c1f2b;
+      border-radius: 10px;
+    }
 
-        a:hover {
-            color: #0096d6;
-            text-shadow: 0 0 10px #0096d6, 0 0 20px #0096d6;
-        }
+    .card-content::-webkit-scrollbar-thumb {
+      background-color: #4a4a4a;
+      border-radius: 10px;
+      border: 2px solid #1c1f2b;
+    }
 
-        /* Adjust website zoom and make it scrollable */
-        body {
-            zoom: 80%;
-            overflow: auto;
-            /* Ensure the top content is visible */
-            margin-top: 0;
-            padding-top: 0;
-        }
+    .card-content::-webkit-scrollbar-thumb:hover {
+      background-color: #6a6a6a;
+    }
 
-        /* Ensure the top content is visible by default */
-        .info-container {
-            margin-top: 0;
-            padding-top: 0;
-            /* Adjust the container to be scrollable if content exceeds the viewport */
-            overflow-y: auto;
-            max-height: 90vh; /* Adjust the max height to ensure the top content is visible */
-        }
+    /* Style for links */
+    a {
+      color: #00bfff; /* Sky color */
+      text-shadow: 0 0 5px #00bfff; /* Neon effect */
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
 
-        /* Added styles for images section */
-        .images-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .images-section img {
-            width: 30%;
-            border-radius: 10px;
-            transition: transform 0.5s ease;
-        }
-
-        .images-section img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Scary looking container for images */
-        .scary-container {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            max-width: 800px;
-            width: 90%;
-            text-align: left;
-            /* Adjusted to make the container bigger */
-            height: 90vh; /* Adjusted height to make the container bigger */
-            overflow-y: auto; /* Added to make the container scrollable if content exceeds the viewport */
-            margin-top: 20px; /* Added margin-top to separate the scary container from the info container */
-        }
-
-        .scary-container h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .scary-container p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .scary-container h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .scary-container p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .scary-container {
-            animation: fadeIn 2s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .scary-container p span {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .scary-container p span::before {
-            content: "> ";
-            color: #fff;
-        }
-
-        .scary-container {
-            margin-top: 0;
-            padding-top: 0;
-            overflow-y: auto;
-            max-height: 90vh;
-        }
-
-        .images-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .images-section img {
-            width: 30%;
-            border-radius: 10px;
-            transition: transform 0.5s ease;
-        }
-
-        .images-section img:hover {
-            transform: scale(1.05);
-        }
-
-    </style>
-
-    <div id="player"></div> <!-- Placeholder for the YouTube player -->
-    <div class="info-container">
-        <h1>About: Our pookie Emtiaz Ehan!</h1>
-        <p>
-            [UK English is used on this Information.]
-            <span> Real Name: Emtiaz Ehan</span>
-            <span> Born in: Dhaka, Bangladesh</span>
-            <span> Also Lived in: London, UK</span>
-            <span> Location: (Google Maps) 23°46'23.2"N 90°21'56.5"E, (OpenStreetMap) 23.708600, 90.401700</span>
-            <span> Currently Lives in: Dhaka, Bangladesh</span>
-            <span> Public IP Address / IPv4 (Internet Protocol version 4): 199.232.22.132</span>
-            <span> Public IP Port: 443</span>
-            <span> Private IP Address: 103.218.24.232</span>
-            <span> Youtube Name: <a href="https://www.youtube.com/@PaknaEmtu" class="neon-blue-link">Balpakna Emtiaz / PaknaEmtu</a></span>
-            <span> Subscribers: 90</span>
-            <span> Videos: 5</span>
-            <span> Shorts: 29</span>
-            <span> Total Videos: 34</span>
-            <span> Views total (Youtube): 19,410 views</span>
-            <span> Created Youtube On: Joined 21 Dec 2023</span>
-            <span> Shared Music: <a href="https://www.bandlab.com/post/c1230fd4-8a1e-ef11-86d2-6045bd2cd6bc" class="neon-blue-link">https://www.bandlab.com/post/c1230fd4-8a1e-ef11-86d2-6045bd2cd6bc</a></span>
-            <span> Music Career: <a href="https://www.bandlab.com/emtiazehan" class="neon-blue-link">https://www.bandlab.com/emtiazehan</a></span>
-            <span> Started Career in music: 2023 december</span>
-            <span> Favourite genre of music: Rock, Pop, Hip Hop, R&B & Soul, Electronic, Jazz, Latin, Classical, Funk, K–Pop, Progressive Rock, House, Dance & EDM, Trap, Lo–fi & Others.</span>
-            <span> Music Preference Type: Eclectic</span>
-            <span> Idol / Inspired from: D4vd, Ed Sheeran, Kendrick Lamar, Alan Walker (9)</span>
-            <span> Roblox: <a href="https://www.roblox.com/users/5241057628/profile" class="neon-blue-link">https://www.roblox.com/users/5241057628/profile</a> aka GHOST_9rol / Emtizzy</span>
-            <span> Roblox Total Badges: 552</span>
-            <span> Favourite Game: Bladeball (ass)</span>
-            <span> Discord Alt's: emtuu2, human1230526</span>
-            <span> Uncle's Website: <a href="https://www.jonaki.com" class="neon-blue-link">jonaki.com</a></span>
-            <span> Height: 5'2 (Estimated 5'3 or 5'4)</span>
-            <span> Had a view at: 24.314600, 89.568000 </span>
-            <span> [RAW] Had a view at: 24°18'52.6"N 89°34'04.8"E</span>
-            <span> Device: Chromebook / ChromeOS</span>
-            <span> Spotify: <a href="https://open.spotify.com/user/31vbl63ygip7oagt3atlatzghw4e" class="neon-blue-link">https://open.spotify.com/user/31vbl63ygip7oagt3atlatzghw4e</a></span>
-            <span> His Ex pookie bear (spotify): <a href="https://open.spotify.com/user/31kyyjzyhmagurufnzbszyxdtrdm" class="neon-blue-link">https://open.spotify.com/user/31kyyjzyhmagurufnzbszyxdtrdm</a></span>
-            <span> Personality: Egotistic, Manipulator [EMOTIONAL INTELLIGENCE], Retarded & Underdeveloped.</span>
-            <span> Type: Bisexual or Straight {May be bisexual because he acts like one.}</span>
-            <span> Age: 9 - 12 [ESTIMATED]</span>
-            <span> Voice type: Child {Thyroid cartilage expansion did not happen because the growth of the larynx did not occur.}</span>
-            <span> Hobby: Music artistry.</span>
-            <span> Favourite color: Purple or Blue.</span>
-            <span> Favourite Anime: Sonny Boy.</span>
-            <span> Favourite Anime Character: Asakaze</span>
-            <span> Character's Voice Actor: Chiaki Kobayashi [Age 30, born in Jun 4, 1994, Best New Actor Award at the 15th Seiyu Awards]</span>
-            <spam> Average Life expectancy: 60.2</spam>
-            <span> Average income: 254 EUR / 31,838.90 TK</span>
-            <span> Sub continent: Southern and Central Asia</span>
-            <span> GNP: 32,852 mln</span>
-            <span> Flag: <a href="https://assets.ipstack.com/flags/bd.svg" class="neon-blue-link">https://assets.ipstack.com/flags/bd.svg</a></span>
-            <span> Currency: Bangladeshi Taka (BDT/৳)</span>
-            <span> Isp: "Systems Solutions & Development Technologies Limited"</span>
-            <span> Isp Website: <a href="https://www.ssdtl.com.bd" class="neon-blue-link">https://www.ssdtl.com.bd/</a></span> 
-            <span> Asn: 63526</span>
-            <span> Calling code: "+880"</span>
-            <span> ScreenWidth: 1280
-            <span> ScreenHeight: 800</span>
-            <span> BatteryLevel: 53%</span>
-            <span> Connection Type: 4g</span>
-            <span> Country Flag Emoji Unicode: "U+1F1E7 U+1F1E9"</span>
-            <span> Battery Charging: False</span>
-            <span> Cpu Cores: 2</span>
-            <span> WebGLRenderer: ANGLE (Intel, Vulkan 1.3.278 (Intel(R) UHD Graphics (JSL) (0x00004E55)), Intel open-source Mesa driver)</span>
-            <span> ColorDepth: 24</span>
-            <span> Timestamp: 2024-12-15T13:00:20.962Z</span>
-            <span> Screen Orientation: Landscape-Primary</span>
-            <span> JSHeapSizeLimit: 2028208128</span>
-            <span> TotalJSHeapSize: 2415442</span>
-            <span> UsedJSHeapSize: 1573654</span>
-            <span> LocalStorageEnabled: True</span>
-            <span> HardwareConcurrency: 2</span>
-        </p>
-    </div>
-    <div class="scary-container">
-        <h1>Images About Our pookie!</h1>
-        <div class="images-section">
-            <a href="https://ibb.co.com/TcqCF9q"><img src="https://i.ibb.co.com/p2rm9Yr/image2.png" alt="image2" border="0"></a>
-            <a href="https://ibb.co.com/qJxw4pd"><img src="https://i.ibb.co.com/jJHFxDT/image3.png" alt="image3" border="0"></a>
-            <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/Swn9FTW/Picsart-24-05-08-19-25-00-957.png" alt="Picsart-24-05-08-19-25-00-957" border="0"></a>
+    a:hover {
+      color: #87ceeb; /* Lighter sky color on hover */
+      text-shadow: 0 0 10px #87ceeb; /* Stronger neon effect on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+      <div class="card-content" style="position: absolute; top: 20px; left: 20px; text-align: left; height: calc(100% - 40px); overflow-y: auto; padding: 10px;">
+        <h1 style="margin: 0;">Our Bootyhole Bandit's Information!</h1>
+        <blockquote style="margin: 10px 0; padding: 5px 10px; border-left: 3px solid #4a4a4a; color: #d3d3d3;">
+          <p style="margin: 15px 0 0 0;">Username: enri_ok</p>
+          <p style="margin: 15px 0 0 0;">Country: Singapore</p>
+          <p style="margin: 15px 0 0 0;">IP: 180.129.70.9</p>
+          <p style="margin: 15px 0 0 0;">Age: 11</p>
+          <p style="margin: 15px 0 0 0;">Loves: Mimi / daisy_yay123</p>
+          <p style="margin: 15px 0 0 0;">Born on February 10, 2013</p>
+          <p style="margin: 15px 0 0 0;">Pet: Duck</p>
+          <p style="margin: 15px 0 0 0;">Setup: Near a Oven, Maybe in a Kitchen Basically.</p>
+          <p style="margin: 15px 0 0 0;">Duck Stands / Sits On: Melon shaped Pillow.</p>
+          <p style="margin: 15px 0 0 0;">Duck's Net Worth: $700 or more.</p>
+          <p style="margin: 15px 0 0 0;">Shower's Duck: At least 5 times a day.</p>
+          <p style="margin: 15px 0 0 0;">Duck's Clothes: Diapers</p>
+          <p style="margin: 15px 0 0 0;">Biggest Illness: Noro Virus [Context: Norovirus, often called the "stomach flu," is a highly contagious virus that causes gastrointestinal illness. It spreads through contaminated food, water, surfaces, or close contact with infected individuals. Symptoms include severe vomiting, diarrhea, stomach cramps, nausea, and sometimes fever, appearing 12-48 hours after exposure and lasting 1-3 days.]</p>
+          <p style="margin: 15px 0 0 0;">Roblox Font: F77 Minecraft by 123467</p>
+          <p style="margin: 15px 0 0 0;">Roblox Username: James301957</p>
+          <p style="margin: 15px 0 0 0;">Roblox Displayname: Cryopeek</p>
+          <p style="margin: 15px 0 0 0;">Total Outfit Costs: 300 Robux</p>
+          <p style="margin: 15px 0 0 0;">House Picture (Might be Not accurate): <a href="https://media.discordapp.net/attachments/1276127072032657452/1318247580211216424/image.png?ex=6761a13a&is=67604fba&hm=7b6c001ff1efc8c01a9059f8959ee986d3c123b5541d91aacf75f87732986bc7&=&format=webp&quality=lossless&width=402&height=262">Link</a></p>
+          <p style="margin: 15px 0 0 0;">House In: 114 Toh Yi Dr</p>
+          <p style="margin: 15px 0 0 0;">Total Roblox Badges: 1074</p>
+          <p style="margin: 15px 0 0 0;">Has Limited: 1</p>
+          <p style="margin: 15px 0 0 0;">Limited Item Name (Roblox): Star Egg, #69059</p>
+          <p style="margin: 15px 0 0 0;">Friend's (On Roblox): 89</p>
+          <p style="margin: 15px 0 0 0;">Total groups joined (On Roblox): 92</p>
+          <p style="margin: 15px 0 0 0;">Joined Discord Server (halim chacha jojuba official collab server): Friday, 27 September, 2024</p>
+          <p style="margin: 15px 0 0 0;">Omakase Course meal Cost [Context: An "Omakase course meal" is a dining experience where a chef selects and serves a series of dishes based on the freshest seasonal ingredients, essentially leaving the choice of what to eat entirely up to the chef, with the diner trusting their culinary expertise to create a personalized meal; the term "Omakase" translates to "I leave it up to you" in Japanese, signifying this trust in the chef's selection.]: $539</p>
+          <p style="margin: 15px 0 0 0;">Platform: iPhone</p>
+          <p style="margin: 15px 0 0 0;">User Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 17_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.8 Mobile/15E148 Safari/604.1</p>
+          <p style="margin: 15px 0 0 0;">ScreenWidth: 414</p>
+          <p style="margin: 15px 0 0 0;">ScreenHeight: 896</p>
+          <p style="margin: 15px 0 0 0;">ColorDepth: 24</p>
+          <p style="margin: 15px 0 0 0;">CookiesEnabled: true</p>
+          <p style="margin: 15px 0 0 0;">Geo Coordinates: (OpenStreet): 1.336000, 103.771600, (Google Maps): 1°20'09.6"N 103°46'17.8"E</p>
+          <p style="margin: 15px 0 0 0;">Location: Singapore, Singapore</p>
+          <p style="margin: 15px 0 0 0;">CpuCores: 4</p>
+          <p style="margin: 15px 0 0 0;">WebGLRenderer: Apple GPU</p>
+          <p style="margin: 15px 0 0 0;">Operating System: iOS</p>
+          <p style="margin: 15px 0 0 0;">LocalStorageEnabled: true</p>
+          <p style="margin: 15px 0 0 0;">SessionStorageEnabled: true</p>
+          <p style="margin: 15px 0 0 0;">HardwareConcurrency: 4</p>
+          <p style="margin: 15px 0 0 0;">Timestamp: 2024-12-16T15:54:32.168Z</p>
+          <p style="margin: 15px 0 0 0;">Cpu Architecture: iPhone</p>
+          <p style="margin: 15px 0 0 0;">Screen Orientation: portrait-primary</p>
+          <p style="margin: 15px 0 0 0;">Has NFC: false</p>
+          <p style="margin: 15px 0 0 0;">Has Bluetooth: false</p>
+          <p style="margin: 15px 0 0 0;">Has Vibration: false</p>
+          <p style="margin: 15px 0 0 0;">Has WebRTC: true</p>
+          <p style="margin: 15px 0 0 0;">Has ClipboardAPI: true</p>
+          <p style="margin: 15px 0 0 0;">Has PaymentRequestAPI: true</p>
+          <p style="margin: 15px 0 0 0;">Has MediaSessionAPI: true</p>
+          <p style="margin: 15px 0 0 0;">Has PictureInPictureAPI: true</p>
+          <p style="margin: 15px 0 0 0;">Has BatteryAPI: false</p>
+          <p style="margin: 15px 0 0 0;">Has PermissionsAPI: true</p>
+          <p style="margin: 15px 0 0 0;">Has PresentationAPI: false</p>
+          <p style="margin: 15px 0 0 0;">Has IdleDetectionAPI: false</p>
+          <p style="margin: 15px 0 0 0;">Has HistoryAPI: true</p>
+          <p style="margin: 15px 0 0 0;">Has GeolocationAPI: true</p>
+          <p style="margin: 15px 0 0 0;">Has DeviceOrientation: true</p>
+          <p style="margin: 15px 0 0 0;">Has DeviceMotion: true</p>
+          <p style="margin: 15px 0 0 0;">Has Cookies: true</p>
+          <p style="margin: 15px 0 0 0;">Has LocalStorage: true</p>
+          <p style="margin: 15px 0 0 0;">Has SessionStorage: true</p>
+          <p style="margin: 15px 0 0 0;">Has ServiceWorkers: true</p>
+          <p style="margin: 15px 0 0 0;">Has IndexedDB: true</p>
+          <p style="margin: 15px 0 0 0;">IP range tracked: 180.129.64.0 - 180.129.127.255</p>
+          <p style="margin: 15px 0 0 0;">Connection: Cable/DSL</p>
+          <p style="margin: 15px 0 0 0;">Org: M1 / Mobile One</p>
+          <p style="margin: 15px 0 0 0;">Isp: M1 / Mobile One</p>
+          <p style="margin: 15px 0 0 0;">Life expectancy: 80.1</p>
+          <p style="margin: 15px 0 0 0;">Sub continent: Southeast Asia</p>
+          <p style="margin: 15px 0 0 0;">Latitude (Full): 1.287950038909912</p>
+          <p style="margin: 15px 0 0 0;">Longitude (Full): 103.8517837524414</p>
+          <p style="margin: 15px 0 0 0;">Code: "en"</p>
+          <p style="margin: 15px 0 0 0;">Name: "English"</p>
+          <p style="margin: 15px 0 0 0;">Native: ""English""</p>
+          <p style="margin: 15px 0 0 0;">Code: "ms"</p>
+          <p style="margin: 15px 0 0 0;">Name: "Malay"</p>
+          <p style="margin: 15px 0 0 0;">Native: ""Bahasa Melayu""</p>
+          <p style="margin: 15px 0 0 0;">Code: "ta"</p>
+          <p style="margin: 15px 0 0 0;">Name: "Tamil"</p>
+          <p style="margin: 15px 0 0 0;">Native: ""தமிழ்""</p>
+          <p style="margin: 15px 0 0 0;">Code: "zh"</p>
+          <p style="margin: 15px 0 0 0;">Name: "Chinese"</p>
+          <p style="margin: 15px 0 0 0;">Native: ""中文""</p>
+          <p style="margin: 15px 0 0 0;">Country Flag: <a href="https://assets.ipstack.com/flags/sg.svg">Link</a></p>
+          <p style="margin: 15px 0 0 0;">Country Flag emoji: "🇸🇬"</p>
+          <p style="margin: 15px 0 0 0;">Country Flag Emoji Unicode: "U+1F1F8 U+1F1EC"</p>
+          <p style="margin: 15px 0 0 0;">Calling code: "65"</p>
+          <p style="margin: 15px 0 0 0;">Asn: 4773</p>
+          <p style="margin: 15px 0 0 0;">Currency symbol: "S$"</p>
+          <p style="margin: 15px 0 0 0;">Currency symbol native: "$"</p>
+          <p style="margin: 15px 0 0 0;">GMT Offset: 28800</p>
+        </blockquote>
+        <h1 style="margin: 20px 0 10px 0;">Images</h1>
+        <div style="margin: 10px 0; padding: 5px 10px; border-left: 3px solid #4a4a4a; color: #d3d3d3;">
+          <p style="margin: 15px 0 0 0;">Him Standing: <a href="https://media.discordapp.net/attachments/1268122870245228555/1318495213228130324/image4.png?ex=676287db&is=6761365b&hm=48fb06f1d28ed5f69d90c38e90a3bb7c10714159c407d1b1c4383a70481d9a9b&=&format=webp&quality=lossless&width=169&height=262">Link</a></p>
+          <p style="margin: 15px 0 0 0;">His Face (Probably): <a href="https://media.discordapp.net/attachments/1268122870245228555/1318496018052157460/56a63b870a676cce814e9a754c979b7e.png?ex=6762889b&is=6761371b&hm=e55170a060728842c155291488ba3aeea59f170cbcea6559caf9a9a50c47b10d&=&format=webp&quality=lossless&width=248&height=248">Link</a></p>
         </div>
+      </div>
     </div>
-    <div data-video="6N1myUJvukg"  
-    data-autoplay="0"         
-    data-loop="1"             
-    id="youtube-audio">
-</div>
-<script src="https://www.youtube.com/iframe_api"></script>
+  <div class="theme-switcher">
+    <button id="dark-mode" onclick="toggleDarkMode()">🌑</button>
+    <button id="light-mode" onclick="toggleLightMode()">🌕</button>
+    <button id="device-mode" onclick="toggleDeviceMode()">🖥️</button>
+  </div>
+  <script>
+    function toggleDarkMode() {
+      document.body.style.backgroundColor = '#0c0c0c';
+      document.body.style.color = '#d3d3d3';
+    }
+    function toggleLightMode() {
+      document.body.style.backgroundColor = '#f0f0f0';
+      document.body.style.color = '#000000';
+    }
+    function toggleDeviceMode() {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        toggleDarkMode();
+      } else {
+        toggleLightMode();
+      }
+    }
+  </script>
 </body>
 </html>
