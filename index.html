@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Border Animation</title>
+  <title>Verification System</title>
   <style>
     * {
       margin: 0;
@@ -13,27 +13,20 @@
       font-family: 'Roboto', sans-serif; /* Smooth, readable font */
       color: #d3d3d3; /* Light text color */
     }
-    /* Custom Scrollbar for the Entire Page */
-    body {
-      scrollbar-gutter: stable both-edges;
-    }
-
     body {
       min-height: 100vh; /* Full viewport height */
       background: #0c0c0c; /* Dark background color */
       color: #d3d3d3; /* Light text color */
       display: flex;
-      justify-content: flex-start; /* Align content to the left */
-      align-items: flex-start; /* Align content to the top */
-      text-align: left; /* Align text to the left */
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme change */
-      padding: 20px; /* Add space around the content */
-      overflow: hidden;
     }
     h1 {
       color: #d3d3d3; /* Light color for headings */
       font-size: 2rem; /* Adjust as needed */
-      margin: 0 0 10px 0; /* Add space below the title */
+      margin: 0;
       display: flex;
       align-items: center;
       justify-content: flex-start; /* Align text to the left */
@@ -42,7 +35,6 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start; /* Align content to the left */
-      justify-content: flex-start; /* Align content to the top */
       margin: 0 auto;
       width: 200px;
       height: 100px;
@@ -52,62 +44,11 @@
       border-radius: 10px;
       position: relative;
     }
-    .create-forum-button {
-      cursor: pointer;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      background-color: #4a4a4a;
-      color: #d3d3d3;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .create-forum-button:hover {
-      background-color: #6a6a6a;
-    }
-    .placeholder {
-      color: rgba(211, 211, 211, 0.5); /* Subtle transparency */
-      text-align: left;
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: calc(100% - 40px);
-      height: calc(100% - 40px);
-      overflow-y: scroll; /* Allow vertical scrolling */
-      white-space: pre-wrap; /* Preserve whitespace and wrap text */
-      outline: none;
-      scroll-behavior: smooth;
-      scrollbar-gutter: stable both-edges;
-      overscroll-behavior: contain;
-    }
-
-    /* Hide scrollbar for Webkit browsers */
-    .placeholder::-webkit-scrollbar {
-      width: 0; /* Set width to 0 to hide it */
-      height: 0; /* Optional: Hides horizontal scrollbar */
-    }
-
-    /* Custom Scrollbar Styles (Optional) */
-    .placeholder::-webkit-scrollbar-track {
-      background: #1c1f2b;
-      border-radius: 10px;
-    }
-
-    .placeholder::-webkit-scrollbar-thumb {
-      background-color: #4a4a4a;
-      border-radius: 10px;
-      border: 2px solid #1c1f2b;
-    }
-
-    .placeholder::-webkit-scrollbar-thumb:hover {
-      background-color: #6a6a6a;
-    }
-
     @property --angle {
       syntax: "<angle>";
       initial-value: 0deg;
       inherits: false;
     }
-
     .card::after, .card::before {
       content: '';
       position: absolute;
@@ -134,6 +75,20 @@
         --angle: 360deg;
       }
     }
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #d3d3d3;
+      border-radius: 50%;
+      border-top: 3px solid #ffffff;
+      animation: spin-animation 1s linear infinite;
+      margin-left: 10px; /* Added space to the right of the text */
+    }
+    @keyframes spin-animation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     .theme-switcher {
       position: fixed;
       bottom: 20px;
@@ -155,161 +110,78 @@
     .theme-switcher button:focus {
       outline: none;
     }
-    .card-content {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      text-align: left;
-      height: calc(100% - 40px);
-      overflow-y: scroll; /* Allow vertical scrolling */
-      padding: 10px;
-      scroll-behavior: smooth; /* Very smooth scrolling */
-    }
-
-    /* Custom Scrollbar Styles for card-content */
-    .card-content::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .card-content::-webkit-scrollbar-track {
+    .captcha-container {
+      display: none; /* Initially hidden */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background: #1c1f2b;
+      padding: 20px;
       border-radius: 10px;
+      z-index: 9999;
     }
-
-    .card-content::-webkit-scrollbar-thumb {
-      background-color: #4a4a4a;
-      border-radius: 10px;
-      border: 2px solid #1c1f2b;
+    .captcha-container.show {
+      display: block; /* Show when needed */
     }
-
-    .card-content::-webkit-scrollbar-thumb:hover {
-      background-color: #6a6a6a;
+    .captcha-input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #d3d3d3;
+      border-radius: 5px;
     }
-
-    /* Style for links */
-    a {
-      color: #00bfff; /* Sky color */
-      text-shadow: 0 0 5px #00bfff; /* Neon effect */
-      transition: color 0.3s ease, text-shadow 0.3s ease;
+    .captcha-submit {
+      cursor: pointer;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      background-color: #006aff;
+      color: #d3d3d3;
+      transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme change */
     }
-
-    a:hover {
-      color: #87ceeb; /* Lighter sky color on hover */
-      text-shadow: 0 0 10px #87ceeb; /* Stronger neon effect on hover */
+    .captcha-submit:focus {
+      outline: none;
+    }
+    .captcha-code {
+      font-size: 1.5rem;
+      color: gray;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    .verified-text {
+      display: none; /* Initially hidden */
+      font-size: 1.5rem;
+      color: green;
+      font-weight: bold;
+    }
+    .verified-text.show {
+      display: block; /* Show when needed */
     }
   </style>
 </head>
 <body>
   <div class="card">
-      <div class="card-content" style="position: absolute; top: 20px; left: 20px; text-align: left; height: calc(100% - 40px); overflow-y: auto; padding: 10px;">
-        <h1 style="margin: 0;">Our Bootyhole Bandit's Information!</h1>
-        <blockquote style="margin: 10px 0; padding: 5px 10px; border-left: 3px solid #4a4a4a; color: #d3d3d3;">
-          <p style="margin: 15px 0 0 0;">Username: enri_ok</p>
-          <p style="margin: 15px 0 0 0;">Country: Singapore</p>
-          <p style="margin: 15px 0 0 0;">IP: 180.129.70.9</p>
-          <p style="margin: 15px 0 0 0;">Age: 11</p>
-          <p style="margin: 15px 0 0 0;">Loves: Mimi / daisy_yay123</p>
-          <p style="margin: 15px 0 0 0;">Born on February 10, 2013</p>
-          <p style="margin: 15px 0 0 0;">Pet: Duck</p>
-          <p style="margin: 15px 0 0 0;">Setup: Near a Oven, Maybe in a Kitchen Basically.</p>
-          <p style="margin: 15px 0 0 0;">Duck Stands / Sits On: Melon shaped Pillow.</p>
-          <p style="margin: 15px 0 0 0;">Duck's Net Worth: $700 or more.</p>
-          <p style="margin: 15px 0 0 0;">Shower's Duck: At least 5 times a day.</p>
-          <p style="margin: 15px 0 0 0;">Duck's Clothes: Diapers</p>
-          <p style="margin: 15px 0 0 0;">Biggest Illness: Noro Virus [Context: Norovirus, often called the "stomach flu," is a highly contagious virus that causes gastrointestinal illness. It spreads through contaminated food, water, surfaces, or close contact with infected individuals. Symptoms include severe vomiting, diarrhea, stomach cramps, nausea, and sometimes fever, appearing 12-48 hours after exposure and lasting 1-3 days.]</p>
-          <p style="margin: 15px 0 0 0;">Roblox Font: F77 Minecraft by 123467</p>
-          <p style="margin: 15px 0 0 0;">Roblox Username: James301957</p>
-          <p style="margin: 15px 0 0 0;">Roblox Displayname: Cryopeek</p>
-          <p style="margin: 15px 0 0 0;">Total Outfit Costs: 300 Robux</p>
-          <p style="margin: 15px 0 0 0;">House Picture (Might be Not accurate): <a href="https://media.discordapp.net/attachments/1276127072032657452/1318247580211216424/image.png?ex=6761a13a&is=67604fba&hm=7b6c001ff1efc8c01a9059f8959ee986d3c123b5541d91aacf75f87732986bc7&=&format=webp&quality=lossless&width=402&height=262">Link</a></p>
-          <p style="margin: 15px 0 0 0;">House In: 114 Toh Yi Dr</p>
-          <p style="margin: 15px 0 0 0;">Total Roblox Badges: 1074</p>
-          <p style="margin: 15px 0 0 0;">Has Limited: 1</p>
-          <p style="margin: 15px 0 0 0;">Limited Item Name (Roblox): Star Egg, #69059</p>
-          <p style="margin: 15px 0 0 0;">Friend's (On Roblox): 89</p>
-          <p style="margin: 15px 0 0 0;">Total groups joined (On Roblox): 92</p>
-          <p style="margin: 15px 0 0 0;">Joined Discord Server (halim chacha jojuba official collab server): Friday, 27 September, 2024</p>
-          <p style="margin: 15px 0 0 0;">Omakase Course meal Cost [Context: An "Omakase course meal" is a dining experience where a chef selects and serves a series of dishes based on the freshest seasonal ingredients, essentially leaving the choice of what to eat entirely up to the chef, with the diner trusting their culinary expertise to create a personalized meal; the term "Omakase" translates to "I leave it up to you" in Japanese, signifying this trust in the chef's selection.]: $539</p>
-          <p style="margin: 15px 0 0 0;">Platform: iPhone</p>
-          <p style="margin: 15px 0 0 0;">User Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 17_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.8 Mobile/15E148 Safari/604.1</p>
-          <p style="margin: 15px 0 0 0;">ScreenWidth: 414</p>
-          <p style="margin: 15px 0 0 0;">ScreenHeight: 896</p>
-          <p style="margin: 15px 0 0 0;">ColorDepth: 24</p>
-          <p style="margin: 15px 0 0 0;">CookiesEnabled: true</p>
-          <p style="margin: 15px 0 0 0;">Geo Coordinates: (OpenStreet): 1.336000, 103.771600, (Google Maps): 1°20'09.6"N 103°46'17.8"E</p>
-          <p style="margin: 15px 0 0 0;">Location: Singapore, Singapore</p>
-          <p style="margin: 15px 0 0 0;">CpuCores: 4</p>
-          <p style="margin: 15px 0 0 0;">WebGLRenderer: Apple GPU</p>
-          <p style="margin: 15px 0 0 0;">Operating System: iOS</p>
-          <p style="margin: 15px 0 0 0;">LocalStorageEnabled: true</p>
-          <p style="margin: 15px 0 0 0;">SessionStorageEnabled: true</p>
-          <p style="margin: 15px 0 0 0;">HardwareConcurrency: 4</p>
-          <p style="margin: 15px 0 0 0;">Timestamp: 2024-12-16T15:54:32.168Z</p>
-          <p style="margin: 15px 0 0 0;">Cpu Architecture: iPhone</p>
-          <p style="margin: 15px 0 0 0;">Screen Orientation: portrait-primary</p>
-          <p style="margin: 15px 0 0 0;">Has NFC: false</p>
-          <p style="margin: 15px 0 0 0;">Has Bluetooth: false</p>
-          <p style="margin: 15px 0 0 0;">Has Vibration: false</p>
-          <p style="margin: 15px 0 0 0;">Has WebRTC: true</p>
-          <p style="margin: 15px 0 0 0;">Has ClipboardAPI: true</p>
-          <p style="margin: 15px 0 0 0;">Has PaymentRequestAPI: true</p>
-          <p style="margin: 15px 0 0 0;">Has MediaSessionAPI: true</p>
-          <p style="margin: 15px 0 0 0;">Has PictureInPictureAPI: true</p>
-          <p style="margin: 15px 0 0 0;">Has BatteryAPI: false</p>
-          <p style="margin: 15px 0 0 0;">Has PermissionsAPI: true</p>
-          <p style="margin: 15px 0 0 0;">Has PresentationAPI: false</p>
-          <p style="margin: 15px 0 0 0;">Has IdleDetectionAPI: false</p>
-          <p style="margin: 15px 0 0 0;">Has HistoryAPI: true</p>
-          <p style="margin: 15px 0 0 0;">Has GeolocationAPI: true</p>
-          <p style="margin: 15px 0 0 0;">Has DeviceOrientation: true</p>
-          <p style="margin: 15px 0 0 0;">Has DeviceMotion: true</p>
-          <p style="margin: 15px 0 0 0;">Has Cookies: true</p>
-          <p style="margin: 15px 0 0 0;">Has LocalStorage: true</p>
-          <p style="margin: 15px 0 0 0;">Has SessionStorage: true</p>
-          <p style="margin: 15px 0 0 0;">Has ServiceWorkers: true</p>
-          <p style="margin: 15px 0 0 0;">Has IndexedDB: true</p>
-          <p style="margin: 15px 0 0 0;">IP range tracked: 180.129.64.0 - 180.129.127.255</p>
-          <p style="margin: 15px 0 0 0;">Connection: Cable/DSL</p>
-          <p style="margin: 15px 0 0 0;">Org: M1 / Mobile One</p>
-          <p style="margin: 15px 0 0 0;">Isp: M1 / Mobile One</p>
-          <p style="margin: 15px 0 0 0;">Life expectancy: 80.1</p>
-          <p style="margin: 15px 0 0 0;">Sub continent: Southeast Asia</p>
-          <p style="margin: 15px 0 0 0;">Latitude (Full): 1.287950038909912</p>
-          <p style="margin: 15px 0 0 0;">Longitude (Full): 103.8517837524414</p>
-          <p style="margin: 15px 0 0 0;">Code: "en"</p>
-          <p style="margin: 15px 0 0 0;">Name: "English"</p>
-          <p style="margin: 15px 0 0 0;">Native: ""English""</p>
-          <p style="margin: 15px 0 0 0;">Code: "ms"</p>
-          <p style="margin: 15px 0 0 0;">Name: "Malay"</p>
-          <p style="margin: 15px 0 0 0;">Native: ""Bahasa Melayu""</p>
-          <p style="margin: 15px 0 0 0;">Code: "ta"</p>
-          <p style="margin: 15px 0 0 0;">Name: "Tamil"</p>
-          <p style="margin: 15px 0 0 0;">Native: ""தமிழ்""</p>
-          <p style="margin: 15px 0 0 0;">Code: "zh"</p>
-          <p style="margin: 15px 0 0 0;">Name: "Chinese"</p>
-          <p style="margin: 15px 0 0 0;">Native: ""中文""</p>
-          <p style="margin: 15px 0 0 0;">Country Flag: <a href="https://assets.ipstack.com/flags/sg.svg">Link</a></p>
-          <p style="margin: 15px 0 0 0;">Country Flag emoji: "🇸🇬"</p>
-          <p style="margin: 15px 0 0 0;">Country Flag Emoji Unicode: "U+1F1F8 U+1F1EC"</p>
-          <p style="margin: 15px 0 0 0;">Calling code: "65"</p>
-          <p style="margin: 15px 0 0 0;">Asn: 4773</p>
-          <p style="margin: 15px 0 0 0;">Currency symbol: "S$"</p>
-          <p style="margin: 15px 0 0 0;">Currency symbol native: "$"</p>
-          <p style="margin: 15px 0 0 0;">GMT Offset: 28800</p>
-        </blockquote>
-        <h1 style="margin: 20px 0 10px 0;">Images</h1>
-        <div style="margin: 10px 0; padding: 5px 10px; border-left: 3px solid #4a4a4a; color: #d3d3d3;">
-          <p style="margin: 15px 0 0 0;">Him Standing: <a href="https://media.discordapp.net/attachments/1268122870245228555/1318495213228130324/image4.png?ex=676287db&is=6761365b&hm=48fb06f1d28ed5f69d90c38e90a3bb7c10714159c407d1b1c4383a70481d9a9b&=&format=webp&quality=lossless&width=169&height=262">Link</a></p>
-          <p style="margin: 15px 0 0 0;">His Face (Probably): <a href="https://media.discordapp.net/attachments/1268122870245228555/1318496018052157460/56a63b870a676cce814e9a754c979b7e.png?ex=6762889b&is=6761371b&hm=e55170a060728842c155291488ba3aeea59f170cbcea6559caf9a9a50c47b10d&=&format=webp&quality=lossless&width=248&height=248">Link</a></p>
-        </div>
-      </div>
-    </div>
+    <h1>Verifying  <span class="loading-spinner"></span></h1>
+  </div>
   <div class="theme-switcher">
     <button id="dark-mode" onclick="toggleDarkMode()">🌑</button>
     <button id="light-mode" onclick="toggleLightMode()">🌕</button>
     <button id="device-mode" onclick="toggleDeviceMode()">🖥️</button>
   </div>
+  <div class="captcha-container">
+    <form>
+      <div class="captcha-code" id="captcha-code"></div>
+      <input type="text" class="captcha-input" placeholder="Enter the code">
+      <button class="captcha-submit">Submit</button>
+      <div class="verified-text" id="verified-text">Verified</div>
+    </form>
+  </div>
   <script>
+    let captchaTimer = null;
+    let captchaActive = false;
+    let captchaAttempts = 0; // Track attempts
+
     function toggleDarkMode() {
       document.body.style.backgroundColor = '#0c0c0c';
       document.body.style.color = '#d3d3d3';
@@ -325,6 +197,59 @@
         toggleLightMode();
       }
     }
+
+    function startCaptchaTimer() {
+      captchaTimer = setTimeout(() => {
+        showCaptcha();
+      }, 1500); // 1.5 seconds
+    }
+
+    function showCaptcha() {
+      if (!captchaActive) {
+        captchaActive = true;
+        document.querySelector('.captcha-container').classList.add('show');
+        generateCaptchaCode(); // Generate a new captcha code
+      }
+    }
+
+    function hideCaptcha() {
+      if (captchaActive) {
+        captchaActive = false;
+        document.querySelector('.captcha-container').classList.remove('show');
+      }
+    }
+
+    function generateCaptchaCode() {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let captchaCode = '';
+      for (let i = 0; i < 6; i++) {
+        captchaCode += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      document.getElementById('captcha-code').innerText = captchaCode;
+    }
+
+    function checkCaptcha() {
+      const captchaInput = document.querySelector('.captcha-input').value;
+      const captchaCode = document.getElementById('captcha-code').innerText;
+      if (captchaInput.toLowerCase() === captchaCode.toLowerCase()) {
+        alert('Captcha correct! You may proceed.');
+        hideCaptcha();
+        document.getElementById('verified-text').classList.add('show');
+        setTimeout(() => {
+          window.location.href = 'https://www.example.com'; // Redirect to example.com
+        }, 1000); // Wait for 1 second before redirecting
+      } else {
+        captchaAttempts++;
+        alert(`Incorrect. You have ${captchaAttempts} attempts left.`);
+        document.querySelector('.captcha-input').value = ''; // Clear input for next attempt
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', startCaptchaTimer);
+    document.querySelector('.captcha-submit').addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent form submission
+      checkCaptcha();
+    });
   </script>
 </body>
 </html>
