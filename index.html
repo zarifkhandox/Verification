@@ -110,7 +110,7 @@
     .theme-switcher button:focus {
       outline: none;
     }
-    .captcha-container {
+    .verification-container {
       display: none; /* Initially hidden */
       position: fixed;
       top: 50%;
@@ -121,17 +121,17 @@
       border-radius: 10px;
       z-index: 9999;
     }
-    .captcha-container.show {
+    .verification-container.show {
       display: block; /* Show when needed */
     }
-    .captcha-input {
+    .verification-input {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
       border: 1px solid #d3d3d3;
       border-radius: 5px;
     }
-    .captcha-submit {
+    .verification-submit {
       cursor: pointer;
       border: none;
       padding: 10px 20px;
@@ -140,10 +140,10 @@
       color: #d3d3d3;
       transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme change */
     }
-    .captcha-submit:focus {
+    .verification-submit:focus {
       outline: none;
     }
-    .captcha-code {
+    .verification-code {
       font-size: 1.5rem;
       color: gray;
       font-style: italic;
@@ -169,18 +169,18 @@
     <button id="light-mode" onclick="toggleLightMode()">🌕</button>
     <button id="device-mode" onclick="toggleDeviceMode()">🖥️</button>
   </div>
-  <div class="captcha-container">
+  <div class="verification-container">
     <form>
-      <div class="captcha-code" id="captcha-code"></div>
-      <input type="text" class="captcha-input" placeholder="Enter the code">
-      <button class="captcha-submit">Submit</button>
+      <div class="verification-code" id="verification-code"></div>
+      <input type="text" class="verification-input" placeholder="Enter the code">
+      <button class="verification-submit">Submit</button>
       <div class="verified-text" id="verified-text">Verified</div>
     </form>
   </div>
   <script>
-    let captchaTimer = null;
-    let captchaActive = false;
-    let captchaAttempts = 0; // Track attempts
+    let verificationTimer = null;
+    let verificationActive = false;
+    let verificationAttempts = 0; // Track attempts
 
     function toggleDarkMode() {
       document.body.style.backgroundColor = '#0c0c0c';
@@ -198,57 +198,57 @@
       }
     }
 
-    function startCaptchaTimer() {
-      captchaTimer = setTimeout(() => {
-        showCaptcha();
+    function startVerificationTimer() {
+      verificationTimer = setTimeout(() => {
+        showVerification();
       }, 1500); // 1.5 seconds
     }
 
-    function showCaptcha() {
-      if (!captchaActive) {
-        captchaActive = true;
-        document.querySelector('.captcha-container').classList.add('show');
-        generateCaptchaCode(); // Generate a new captcha code
+    function showVerification() {
+      if (!verificationActive) {
+        verificationActive = true;
+        document.querySelector('.verification-container').classList.add('show');
+        generateVerificationCode(); // Generate a new verification code
       }
     }
 
-    function hideCaptcha() {
-      if (captchaActive) {
-        captchaActive = false;
-        document.querySelector('.captcha-container').classList.remove('show');
+    function hideVerification() {
+      if (verificationActive) {
+        verificationActive = false;
+        document.querySelector('.verification-container').classList.remove('show');
       }
     }
 
-    function generateCaptchaCode() {
+    function generateVerificationCode() {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let captchaCode = '';
+      let verificationCode = '';
       for (let i = 0; i < 6; i++) {
-        captchaCode += characters.charAt(Math.floor(Math.random() * characters.length));
+        verificationCode += characters.charAt(Math.floor(Math.random() * characters.length));
       }
-      document.getElementById('captcha-code').innerText = captchaCode;
+      document.getElementById('verification-code').innerText = verificationCode;
     }
 
-    function checkCaptcha() {
-      const captchaInput = document.querySelector('.captcha-input').value;
-      const captchaCode = document.getElementById('captcha-code').innerText;
-      if (captchaInput.toLowerCase() === captchaCode.toLowerCase()) {
-        alert('Captcha correct! You may proceed.');
-        hideCaptcha();
+    function checkVerification() {
+      const verificationInput = document.querySelector('.verification-input').value;
+      const verificationCode = document.getElementById('verification-code').innerText;
+      if (verificationInput.toLowerCase() === verificationCode.toLowerCase()) {
+        alert('Verification correct! You may proceed.');
+        hideVerification();
         document.getElementById('verified-text').classList.add('show');
         setTimeout(() => {
           window.location.href = 'https://www.example.com'; // Redirect to example.com
         }, 1000); // Wait for 1 second before redirecting
       } else {
-        captchaAttempts++;
-        alert(`Incorrect. You have ${captchaAttempts} attempts left.`);
-        document.querySelector('.captcha-input').value = ''; // Clear input for next attempt
+        verificationAttempts++;
+        alert(`Incorrect. You have ${verificationAttempts} attempts left.`);
+        document.querySelector('.verification-input').value = ''; // Clear input for next attempt
       }
     }
 
-    document.addEventListener('DOMContentLoaded', startCaptchaTimer);
-    document.querySelector('.captcha-submit').addEventListener('click', function(event) {
+    document.addEventListener('DOMContentLoaded', startVerificationTimer);
+    document.querySelector('.verification-submit').addEventListener('click', function(event) {
       event.preventDefault(); // Prevent form submission
-      checkCaptcha();
+      checkVerification();
     });
   </script>
 </body>
